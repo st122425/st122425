@@ -79,14 +79,8 @@ def manhattan_distance(cur, g):
     for node in cur:
         if node != 0:
             gdist = abs(g.index(node) - cur.index(node))
-            # print("---- node:", node, " gdist:", gdist)
             (jumps, steps) = (gdist // 3, gdist % 3)
-            # print("jumps:", jumps, " step:", steps)
             h += jumps + steps
-            # print("h:", h)
-        
-    #         print("mdist:", mdist)
-    # print("total:", mdist)
     return h
 
 
@@ -115,6 +109,7 @@ def solve(cur, goal):
     count = 0
     while not check(cur, goal):
         cur = next_state(cur, goal)
+        print("step:", count)
         print_matrix(cur)
         count = count + 1
         if(count == 1000):
@@ -126,18 +121,6 @@ start = [[2, 8, 3],
          [1, 6, 4],
          [7, 0, 5]]
 
-# start = [[1, 0, 2],
-#          [4, 5, 3],
-#          [7, 8, 6]]
-
-# start = [[1, 2, 3],
-#          [4, 0, 5],
-#          [6, 7, 8]]
-
-# goal = [[1, 2, 3],
-#         [4, 5, 6],
-#         [7, 8, 0]]
-
 goal = [[1, 2, 3],
         [8, 0, 4],
         [7, 6, 5]]
@@ -146,14 +129,13 @@ visited = []
 print("-- start state --")
 start_list = convert(start)
 visited.append(start_list)
-print(start_list)
 print_matrix(start_list)
 
 print("-- goal state --")
 goal_list = convert(goal)
 print_matrix(goal_list)
 
-print("-- start solving A*--")
+print("-- start solving A* --")
 t1_start = process_time()
 solve(start_list, goal_list)
 t1_stop = process_time()
